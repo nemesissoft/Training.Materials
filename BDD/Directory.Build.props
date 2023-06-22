@@ -2,6 +2,7 @@
 	<PropertyGroup>			
 		<LangVersion>11.0</LangVersion>
 		<TargetFramework>net7.0</TargetFramework>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<!--TODO <Nullable>enable</Nullable>-->
 
 		<Authors>Anna Szubart, Michał Bryłka</Authors>
