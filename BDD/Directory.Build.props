@@ -1,0 +1,15 @@
+<Project>
+	<PropertyGroup>			
+		<LangVersion>11.0</LangVersion>
+		<TargetFramework>net7.0</TargetFramework>
+		<!--TODO <Nullable>enable</Nullable>-->
+
+		<Authors>Anna Szubart, Michał Bryłka</Authors>
+		<PackageLicenseExpression>MIT OR Apache-2.0</PackageLicenseExpression>
+		<Copyright>Copyright (c) Anna Szubart and Michał Bryłka.</Copyright>
+
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<WarningsAsErrors />
+	</PropertyGroup>
+
+</Project>
