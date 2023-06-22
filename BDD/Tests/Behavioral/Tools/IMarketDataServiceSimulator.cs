@@ -1,10 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿namespace Behavioral.Tools;
 
-namespace Behavioral.Tools
+public interface IMarketDataServiceSimulator
 {
-    public interface IMarketDataServiceSimulator
-    {
-        Task InsertNewMarketData(string symbol, decimal bid, decimal ask, int bidSize, int askSize);
-        Task ClearMarketData();
-    }
+    Task InsertNewMarketData(string symbol, decimal bid, decimal ask, int bidSize, int askSize);
+    Task ClearMarketData();
 }

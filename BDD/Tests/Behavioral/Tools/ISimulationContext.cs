@@ -1,9 +1,8 @@
-﻿namespace Behavioral.Tools
+﻿namespace Behavioral.Tools;
+
+public interface ISimulationContext
 {
-    public interface ISimulationContext
-    {
-        IMarketDataServiceSimulator MarketDataServiceSimulator { get; }
-        IOrderManagementSystemSimulator OrderManagementSystemSimulator { get; }
-        ITradingSystemClient TradingSystemClient { get; }
-    }
+    IMarketDataServiceSimulator MarketDataServiceSimulator { get; }
+    IOrderManagementSystemSimulator OrderManagementSystemSimulator { get; }
+    ITradingSystemClient TradingSystemClient { get; }
 }

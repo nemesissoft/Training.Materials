@@ -1,16 +1,15 @@
-﻿namespace TradingSystem.Strategies.DayIn.AuctionStates
+﻿namespace TradingSystem.Strategies.DayIn.AuctionStates;
+
+public interface IAuctionState
 {
-    public interface IAuctionState
-    {
-        IAuctionState Start();
-        StrategyContext Context { get; }
-        IAuctionState OnTradingSessionChanged(TradingSessionType newSessionType);
+    IAuctionState Start();
+    StrategyContext Context { get; }
+    IAuctionState OnTradingSessionChanged(TradingSessionType newSessionType);
 
-        void OnParentModificationRequested(TsOrder newParent);
-        IAuctionState OnParentCancellationRequested();
+    void OnParentModificationRequested(TsOrder newParent);
+    IAuctionState OnParentCancellationRequested();
 
-        void OnChildRejected();
+    void OnChildRejected();
 
-        IAuctionState OnChildFilled(TsOrder child);
-    }
+    IAuctionState OnChildFilled(TsOrder child);
 }

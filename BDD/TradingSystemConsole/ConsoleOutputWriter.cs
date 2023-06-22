@@ -1,12 +1,6 @@
-﻿using System;
+﻿namespace TradingSystemConsole;
 
-namespace TradingSystemConsole
+public class ConsoleOutputWriter : IOutputWriter
 {
-    public class ConsoleOutputWriter : IOutputWriter
-    {
-        public void Write(string value)
-        {
-            Console.WriteLine(value);
-        }
-    }
+    public void Write(string value) => Console.WriteLine(value);
 }

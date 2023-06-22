@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace TradingSystemWebApiContract;
 
-namespace TradingSystemWebApiContract
+[Serializable]
+public class OrderFillDto
 {
-    [Serializable]
-    public class OrderFillDto
-    {
-        public string Id { get; set; }
-        public int Quantity { get; set; }
-    }
+    public string Id { get; set; }
+    public int Quantity { get; set; }
 }

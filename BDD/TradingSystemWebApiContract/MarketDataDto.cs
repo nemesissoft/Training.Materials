@@ -1,14 +1,11 @@
-﻿using System;
+﻿namespace TradingSystemWebApiContract;
 
-namespace TradingSystemWebApiContract
+[Serializable]
+public class MarketDataDto
 {
-    [Serializable]
-    public class MarketDataDto
-    {
-        public string Symbol { get; set; }
-        public decimal Bid { get; set; }
-        public decimal Ask { get; set; }
-        public int BidSize { get; set; }
-        public int AskSize { get; set; }
-    }
+    public string Symbol { get; set; }
+    public decimal Bid { get; set; }
+    public decimal Ask { get; set; }
+    public int BidSize { get; set; }
+    public int AskSize { get; set; }
 }

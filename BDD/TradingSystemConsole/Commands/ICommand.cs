@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
+﻿namespace TradingSystemConsole.Commands;
 
-namespace TradingSystemConsole.Commands
+public interface ICommand
 {
-    public interface ICommand
-    {
-        string Name { get; }
-        void Execute(IEnumerable<string> input);
-    }
+    string Name { get; }
+    void Execute(IEnumerable<string> input);
 }

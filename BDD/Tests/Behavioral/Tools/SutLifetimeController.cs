@@ -1,37 +1,35 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace Behavioral.Tools
+namespace Behavioral.Tools;
+
+public class SutLifetimeController : IDisposable
 {
-    public class SutLifetimeController : IDisposable
+    private Process _sut = null;
+
+    public void StartSut(string filePath)
     {
-        private Process _sut = null;
-
-        public void StartSut(string filePath)
+        try
         {
-            try
+            _sut = new Process
             {
-                _sut = new Process
+                StartInfo =
                 {
-                    StartInfo =
-                    {
-                        UseShellExecute = true,
-                        FileName =filePath,
-                        CreateNoWindow = false
-                    }
-                };
-                _sut.Start();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                    UseShellExecute = true,
+                    FileName =filePath,
+                    CreateNoWindow = false
+                }
+            };
+            _sut.Start();
         }
-
-        public void Dispose()
+        catch (Exception e)
         {
-            _sut.CloseMainWindow();
-            _sut?.Dispose();
+            Console.WriteLine(e.Message);
         }
+    }
+
+    public void Dispose()
+    {
+        _sut.CloseMainWindow();
+        _sut?.Dispose();
     }
 }

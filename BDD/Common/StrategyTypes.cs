@@ -1,8 +1,7 @@
-﻿namespace Common
+﻿namespace Common;
+
+public enum StrategyTypes
 {
-    public enum StrategyTypes
-    {
-        Day,
-        Sniper
-    }
+    Day,
+    Sniper
 }

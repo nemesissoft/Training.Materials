@@ -1,9 +1,8 @@
-﻿namespace TradingSystem.Strategies.Sniper
+﻿namespace TradingSystem.Strategies.Sniper;
+
+public class ParentOrderInvalid : FinalStateBase
 {
-    public class ParentOrderInvalid : FinalStateBase
+    public ParentOrderInvalid(TsOrder parentOrder) : base(parentOrder)
     {
-        public ParentOrderInvalid(TsOrder parentOrder) : base(parentOrder)
-        {
-        }
     }
 }

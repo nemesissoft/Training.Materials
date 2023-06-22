@@ -1,55 +1,49 @@
 ﻿using Common;
 using DataProviderSystem;
 
-namespace TradingSystem.Strategies.Sniper
+namespace TradingSystem.Strategies.Sniper;
+
+public class ChildOrderSent : ISniperState
 {
-    public class ChildOrderSent : ISniperState
+    private readonly StrategyContext _context;
+    private TsOrder _childOrder;
+    public TsOrder ParentOrder { get; private set; }
+
+    public ChildOrderSent(StrategyContext context,
+        TsOrder parentOrder,
+        TsOrder childOrder)
     {
-        private readonly StrategyContext _context;
-        private TsOrder _childOrder;
-        public TsOrder ParentOrder { get; private set; }
+        _context = context;
+        ParentOrder = parentOrder;
+        _childOrder = childOrder;
+    }
+    public ISniperState Validate() => this;
 
-        public ChildOrderSent(StrategyContext context,
-            TsOrder parentOrder,
-            TsOrder childOrder)
-        {
-            _context = context;
-            ParentOrder = parentOrder;
-            _childOrder = childOrder;
-        }
-        public ISniperState Validate()
-        {
-            return this;
-        }
+    public ISniperState MarketDataReceived(MarketData marketData) => this;
 
-        public ISniperState MarketDataReceived(MarketData marketData)
+    public ISniperState ChildOrderChanged(OrderChangeType changeType, TsOrder childOrder)
+    {
+        switch (changeType)
         {
-            return this;
+            case OrderChangeType.Rejection:
+            case OrderChangeType.Cancellation:
+                ParentOrder = _context.OrderManagerWrapper.Refresh(ParentOrder);
+                return new WaitingForMarketData(_context, ParentOrder);
+            case OrderChangeType.Fill when childOrder.PendingQuantity == 0:
+                ParentOrder = _context.OrderManagerWrapper.Refresh(ParentOrder);
+                _context.StrategyFinishedProcessing(ParentOrder.Id);
+                return new ChildOrderFilled(ParentOrder);
+            default:
+                _childOrder = childOrder;
+                return this;
         }
+    }
 
-        public ISniperState ChildOrderChanged(OrderChangeType changeType, TsOrder childOrder)
+    public ISniperState ParentOrderChanged(OrderChangeType changeType, TsOrder parentOrder)
+    {
+        switch (changeType)
         {
-            switch (changeType)
-            {
-                case OrderChangeType.Rejection:
-                case OrderChangeType.Cancellation:
-                    ParentOrder = _context.OrderManagerWrapper.Refresh(ParentOrder);
-                    return new WaitingForMarketData(_context, ParentOrder);
-                case OrderChangeType.Fill when childOrder.PendingQuantity == 0:
-                    ParentOrder = _context.OrderManagerWrapper.Refresh(ParentOrder);
-                    _context.StrategyFinishedProcessing(ParentOrder.Id);
-                    return new ChildOrderFilled(ParentOrder);
-                default:
-                    _childOrder = childOrder;
-                    return this;
-            }
-        }
-
-        public ISniperState ParentOrderChanged(OrderChangeType changeType, TsOrder parentOrder)
-        {
-            switch (changeType)
-            {
-                case OrderChangeType.Cancellation:
+            case OrderChangeType.Cancellation:
                 {
                     var cancelSucceded = _context.OrderManagerWrapper.CancelChild(_childOrder);
                     if (cancelSucceded)
@@ -59,11 +53,11 @@ namespace TradingSystem.Strategies.Sniper
                         _context.StrategyFinishedProcessing(ParentOrder.Id);
                         return new ParentOrderCancelled(ParentOrder);
                     }
-                
+
                     _context.OrderManagerWrapper.Reject(parentOrder);
                     return this;
                 }
-                case OrderChangeType.Modification:
+            case OrderChangeType.Modification:
                 {
                     var priceChangeBetter = IsPriceLimitBetter(parentOrder);
                     var anyPendingQuantityLeft = ParentOrder.PendingQuantity < parentOrder.PendingQuantity;
@@ -78,16 +72,15 @@ namespace TradingSystem.Strategies.Sniper
                     _childOrder = _context.OrderManagerWrapper.ModifyChild(_childOrder, parentOrder.Price, parentOrder.PendingQuantity);
                     break;
                 }
-            }
-
-            ParentOrder = parentOrder;
-            return this;
         }
 
-        private bool IsPriceLimitBetter(IOrder newOrder)
-        {
-            if (ParentOrder.Side == Side.Buy) return ParentOrder.Price <= newOrder.Price;
-            return ParentOrder.Price >= newOrder.Price;
-        }
+        ParentOrder = parentOrder;
+        return this;
+    }
+
+    private bool IsPriceLimitBetter(IOrder newOrder)
+    {
+        if (ParentOrder.Side == Side.Buy) return ParentOrder.Price <= newOrder.Price;
+        return ParentOrder.Price >= newOrder.Price;
     }
 }

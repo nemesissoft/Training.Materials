@@ -1,12 +1,11 @@
-﻿namespace TradingSystem
+﻿namespace TradingSystem;
+
+public enum TradingSessionType
 {
-    public enum TradingSessionType
-    {
-        //  PreOpen,
-        ContinuesTrading,
-        OpenAuction,
-        CloseAuction,
-        IntradayAuction,
-        MarketClosed
-    }
+    //  PreOpen,
+    ContinuesTrading,
+    OpenAuction,
+    CloseAuction,
+    IntradayAuction,
+    MarketClosed
 }

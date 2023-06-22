@@ -1,17 +1,13 @@
 ﻿using TradingSystem.Strategies.DayIn.AuctionStates;
 
-namespace TradingSystem.Strategies.DayIn.OrderState
+namespace TradingSystem.Strategies.DayIn.OrderState;
+
+public class NotImportantChange : ITsOrderState
 {
-    public class NotImportantChange : ITsOrderState
-    {
-        private readonly IAuctionState _auctionState;
+    private readonly IAuctionState _auctionState;
 
-        public NotImportantChange(IAuctionState auctionState)
-        {
-            _auctionState = auctionState;
-        }
+    public NotImportantChange(IAuctionState auctionState) => _auctionState = auctionState;
 
-        public IAuctionState HandleOrderChange()
-            => _auctionState;
-    }
+    public IAuctionState HandleOrderChange()
+        => _auctionState;
 }

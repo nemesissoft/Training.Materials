@@ -1,17 +1,16 @@
-﻿namespace TradingSystem.Strategies.Sniper
+﻿namespace TradingSystem.Strategies.Sniper;
+
+public class StrategyContext
 {
-    public class StrategyContext
+    public OrderManagerWrapper OrderManagerWrapper { get; }
+    public StrategyFinishedProcessingHandler StrategyFinishedProcessing { get; set; }
+
+
+    public StrategyContext(
+        OrderManagerWrapper orderManagerWrapper,
+        StrategyFinishedProcessingHandler strategyFinishedProcessing)
     {
-        public OrderManagerWrapper OrderManagerWrapper { get; }
-        public StrategyFinishedProcessingHandler StrategyFinishedProcessing { get; set; }
-
-
-        public StrategyContext(
-            OrderManagerWrapper orderManagerWrapper,
-            StrategyFinishedProcessingHandler strategyFinishedProcessing)
-        {
-            OrderManagerWrapper = orderManagerWrapper;
-            StrategyFinishedProcessing += strategyFinishedProcessing;
-        }
+        OrderManagerWrapper = orderManagerWrapper;
+        StrategyFinishedProcessing += strategyFinishedProcessing;
     }
 }

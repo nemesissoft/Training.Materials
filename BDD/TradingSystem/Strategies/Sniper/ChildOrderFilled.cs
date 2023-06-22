@@ -1,9 +1,8 @@
-﻿namespace TradingSystem.Strategies.Sniper
+﻿namespace TradingSystem.Strategies.Sniper;
+
+public class ChildOrderFilled : FinalStateBase
 {
-    public class ChildOrderFilled : FinalStateBase
+    public ChildOrderFilled(TsOrder parentOrder) : base(parentOrder)
     {
-        public ChildOrderFilled(TsOrder parentOrder) : base(parentOrder)
-        {
-        }
     }
 }

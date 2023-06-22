@@ -1,30 +1,28 @@
-﻿using System.Collections.Generic;
-using OrderManagementSystem;
+﻿using OrderManagementSystem;
 using TradingSystemConsole.Parsers;
 
-namespace TradingSystemConsole.Commands
+namespace TradingSystemConsole.Commands;
+
+public class GetOrderById:ICommand
 {
-    public class GetOrderById:ICommand
+    private readonly IOrderManager _orderManager;
+    private readonly IOutputWriter _outputWriter;
+
+    public GetOrderById(
+        IOrderManager orderManager,
+        IOutputWriter outputWriter)
     {
-        private readonly IOrderManager _orderManager;
-        private readonly IOutputWriter _outputWriter;
+        _orderManager = orderManager;
+        _outputWriter = outputWriter;
+    }
 
-        public GetOrderById(
-            IOrderManager orderManager,
-            IOutputWriter outputWriter)
-        {
-            _orderManager = orderManager;
-            _outputWriter = outputWriter;
-        }
+    public string Name => "GET_ORDER_BY_ID";
+    public void Execute(IEnumerable<string> input)
+    {
+        var parser = new GetOrderByIdParser();
+        parser.Parse(input);
+        var result = _orderManager.GetById(parser.Id);
 
-        public string Name => "GET_ORDER_BY_ID";
-        public void Execute(IEnumerable<string> input)
-        {
-            var parser = new GetOrderByIdParser();
-            parser.Parse(input);
-            var result = _orderManager.GetById(parser.Id);
-
-            _outputWriter.Write(result.ToString());
-        }
+        _outputWriter.Write(result.ToString());
     }
 }

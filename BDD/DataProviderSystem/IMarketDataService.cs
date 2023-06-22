@@ -1,9 +1,8 @@
-namespace DataProviderSystem
-{
-    public delegate void NewMarketDataHandler(MarketData marketData);
+namespace DataProviderSystem;
 
-    public interface IMarketDataService
-    {
-        event NewMarketDataHandler NewMarketDataReceived;
-    }
+public delegate void NewMarketDataHandler(MarketData marketData);
+
+public interface IMarketDataService
+{
+    event NewMarketDataHandler NewMarketDataReceived;
 }

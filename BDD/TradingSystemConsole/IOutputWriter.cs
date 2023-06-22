@@ -1,7 +1,6 @@
-﻿namespace TradingSystemConsole
+﻿namespace TradingSystemConsole;
+
+public interface IOutputWriter
 {
-    public interface IOutputWriter
-    {
-        void Write(string value);
-    }
+    void Write(string value);
 }

@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Common;
 
-namespace OrderManagementSystem
+namespace OrderManagementSystem;
+
+public interface IParentOrder
 {
-    public interface IParentOrder
-    {
-        IReadOnlyList<IOrder> Children { get; }
-    }
+    IReadOnlyList<IOrder> Children { get; }
 }

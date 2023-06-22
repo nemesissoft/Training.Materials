@@ -1,19 +1,11 @@
 ﻿using TradingSystem.Strategies.DayIn.AuctionStates;
 
-namespace TradingSystem.Strategies.DayIn.OrderState
+namespace TradingSystem.Strategies.DayIn.OrderState;
+
+public class ParentOrderCancelled : ITsOrderState
 {
-    public class ParentOrderCancelled : ITsOrderState
-    {
+    private readonly IAuctionState _auctionState;
 
-        private readonly IAuctionState _auctionState;
-
-        public ParentOrderCancelled(IAuctionState auctionState)
-        {
-            _auctionState = auctionState;
-        }
-        public IAuctionState HandleOrderChange()
-        {
-            return _auctionState.OnParentCancellationRequested();
-        }
-    }
+    public ParentOrderCancelled(IAuctionState auctionState) => _auctionState = auctionState;
+    public IAuctionState HandleOrderChange() => _auctionState.OnParentCancellationRequested();
 }
