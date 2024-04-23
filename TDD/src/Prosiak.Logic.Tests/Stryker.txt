@@ -1,0 +1,21 @@
+﻿If this is your first local tool
+dotnet new tool-manifest
+
+Install stryker
+dotnet tool install dotnet-stryker
+
+To get started quickly with configuring stryker
+dotnet stryker init
+
+To run with output
+dotnet stryker -o
+
+
+
+https://stryker-mutator.io/
+Stryker.Net – since 2018 - https://stryker-mutator.io/docs/stryker-net/introduction/
+Mutations - https://stryker-mutator.io/docs/stryker-net/mutations/
+Reporters
+Configuration
+Output: https://stryker-mutator.io/docs/mutation-testing-elements/mutant-states-and-metrics/
+
